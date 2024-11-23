@@ -34,6 +34,12 @@ def main():
         scaling_params = load_scaling_params()
         train_mean = scaling_params['mean']
         train_std = scaling_params['std']
+        user_input_scaled = (user_input - train_mean) / train_std
+
+        # Check that the scaled input is in the correct shape (2D array with 1 row and n features)
+        if user_input_scaled.ndim == 1:
+            user_input_scaled = user_input_scaled.reshape(1, -1)  # Reshape to 2D
+
         # Load the pre-trained model
         model = load_model()
         
