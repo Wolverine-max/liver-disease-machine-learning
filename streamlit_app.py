@@ -9,14 +9,22 @@ st.info('This app is for Liver Prediction on the basis of Medical Data! ')
 #load model
 @st.cache_resource
 def load_model():
-    with open('liver.pkl', 'rb') as model_file:
-        model = pickle.load(model_file)
-    return model
+    try:
+        with open('liver.pkl', 'rb') as model_file:
+            model = pickle.load(model_file)
+            return model
+    except Exception as e:
+        st.error(f"Error loading the model: {e}")
+        return None
 @st.cache_resource
 def load_scaling_params():
-    with open('scaling_params.pkl', 'rb') as f:
-        scaling_params = pickle.load(f)
-    return scaling_params
+    try:
+        with open('scaling_params.pkl', 'rb') as f:
+            scaling_params = pickle.load(f)
+        return scaling_params
+     except Exception as e:
+        st.error(f"Error loading scaling parameters: {e}")
+        return None
     
 def main():
     age = st.number_input("Age", min_value=18, max_value=100, value=50)
@@ -34,6 +42,9 @@ def main():
         gender_val = 1 if gender == 'Male' else 0
         user_input = np.array([[age, gender_val, total_bilirubin, alkaline_phosphotase, sgpt, sgot, total_proteins, albumin, bilirubin_direct, alkaline_phosphotase_direct]])
         scaling_params = load_scaling_params()
+        if scaling_params is None:
+            return
+            
         train_mean = scaling_params['mean']
         train_std = scaling_params['std']
         train_mean = np.array(train_mean)
@@ -56,13 +67,23 @@ def main():
         # Load the pre-trained model
         model = load_model()
         
-        # Make prediction
-        prediction = model.predict(user_input_scaled)
+        if model is None:
+            st.error("Model failed to load. Please check the model file.")
+            return
         
-        # Output the prediction
-        if prediction == 1:
-            st.error("The model predicts liver disease is present.")
-        else:
-            st.success("The model predicts no liver disease.")
-
+        # Make prediction
+        try:
+            prediction = model.predict(user_input_scaled)
+            st.write(f"Prediction: {prediction}")
+            
+            # Output the prediction
+            if prediction == 1:
+                st.error("The model predicts liver disease is present.")
+            else:
+                st.success("The model predicts no liver disease.")
+        
+        except Exception as e:
+            st.error(f"Error during prediction: {e}")
+if __name__ == '__main__':
+    main()
    
