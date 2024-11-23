@@ -13,9 +13,11 @@ def load_model():
         with open('liver.pkl', 'rb') as model_file:
             model = pickle.load(model_file)
             return model
+            
     except Exception as e:
         st.error(f"Error loading the model: {e}")
         return None
+        
 @st.cache_resource
 def load_scaling_params():
     try:
@@ -84,6 +86,7 @@ def main():
         
         except Exception as e:
             st.error(f"Error during prediction: {e}")
+            
 if __name__ == '__main__':
     main()
    
