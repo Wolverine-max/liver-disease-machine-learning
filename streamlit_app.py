@@ -8,7 +8,7 @@ st.title('Liver prediction App')
 st.info('This app is for Liver Prediction on the basis of Medical Data! ')
 #load model
 @st.cache_resource
-def scale_model():
+def load_model():
     model=pickle.dump(model, open("liver.pkl","rb"))
 @st.cache_resource
 def load_scaling_params():
