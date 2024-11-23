@@ -1,9 +1,7 @@
 import streamlit as st
-import streamlit as st
 import numpy as np
 import pandas as pd
 import pickle
-from sklearn.preprocessing import StandardScaler
 
 st.title('Liver prediction App')
 
@@ -12,8 +10,11 @@ st.info('This app is for Liver Prediction on the basis of Medical Data! ')
 @st.cache_resource
 def scale_model():
     model=pickle.dump(model, open("liver.pkl","rb"))
-def model_input(user_input, model):
-    return model.transform(user_input)
+@st.cache_resource
+def load_scaling_params():
+    with open('scaling_params.pkl', 'rb') as f:
+        scaling_params = pickle.load(f)
+    return scaling_params
     
 def main():
     age = st.number_input("Age", min_value=18, max_value=100, value=50)
@@ -28,9 +29,9 @@ def main():
         # Prepare the input data
         gender_val = 1 if gender == 'Male' else 0
         user_input = np.array([[age, gender_val, total_bilirubin, alkaline_phosphotase, sgpt, sgot, total_proteins, albumin]])
-        model = pickle.load(open('liver.pkl', 'rb')) 
-        user_input_scaled = scale_input(user_input, model)
-
+        scaling_params = load_scaling_params()
+        train_mean = scaling_params['mean']
+        train_std = scaling_params['std']
         # Load the pre-trained model
         model = load_model()
         
