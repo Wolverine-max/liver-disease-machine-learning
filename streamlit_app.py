@@ -37,8 +37,8 @@ def main():
         train_mean = np.array(train_mean)
         train_std = np.array(train_std)
         if len(train_mean) != user_input.shape[1]:
-    st.error(f"Mismatch in number of features: train_mean has {len(train_mean)} features, but user_input has {user_input.shape[1]} features.")
-    return
+            st.error(f"Mismatch in number of features: train_mean has {len(train_mean)} features, but user_input has {user_input.shape[1]} features.")
+            return
 
         user_input_scaled = (user_input - train_mean) / train_std
 
