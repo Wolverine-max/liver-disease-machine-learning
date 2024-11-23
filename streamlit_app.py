@@ -7,4 +7,5 @@ import pickle
 st.title('Liver prediction App')
 
 st.info('This app is for Liver Prediction on the basis of Medical Data! ')
-
+#load model
+model=pickle.dump(model, open("liver.pkl","rb"))
