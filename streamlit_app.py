@@ -7,7 +7,7 @@ st.title('Liver prediction App')
 
 st.info('This app is for Liver Prediction on the basis of Medical Data! ')
 #load model
-st.cache_resource
+
 def load_model():
     try:
         with open('liver.pkl', 'rb') as model_file:
@@ -18,7 +18,7 @@ def load_model():
         return None
 
 # Load the scaling parameters (mean and std)
-st.cache_resource
+
 def load_scaling_params():
     try:
         with open('scaling_params.pkl', 'rb') as f:
