@@ -12,6 +12,7 @@ def load_model():
     try:
         with open('liver.pkl', 'rb') as model_file:
             model = pickle.load(model_file)
+            st.write(f"Loaded model type: {type(model)}")  # Debugging line to check the model type
             return model
     except Exception as e:
         st.error(f"Error loading the model: {e}")
