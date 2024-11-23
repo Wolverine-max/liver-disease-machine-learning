@@ -34,6 +34,8 @@ def main():
         scaling_params = load_scaling_params()
         train_mean = scaling_params['mean']
         train_std = scaling_params['std']
+        train_mean = np.array(train_mean)
+        train_std = np.array(train_std)
         user_input_scaled = (user_input - train_mean) / train_std
 
         # Check that the scaled input is in the correct shape (2D array with 1 row and n features)
