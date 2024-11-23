@@ -30,9 +30,7 @@ def load_scaling_params():
 
 # Streamlit UI
 def main():
-    st.title('Liver Disease Classification')
-    st.write("This application classifies liver disease based on various medical parameters.")
-    
+   
     # Get user inputs for all 10 features (assuming 10 features based on model training)
     age = st.number_input("Age", min_value=18, max_value=100, value=50)
     gender = st.selectbox("Gender", options=["Male", "Female"])
