@@ -11,8 +11,8 @@ st.info('This app is for Liver Prediction on the basis of Medical Data! ')
 @st.cache_resource
 def load_model():
     model=pickle.dump(model, open("liver.pkl","rb"))
-def scale_input(user_input, scaler):
-    return scaler.transform(user_input)
+def model_input(user_input, model):
+    return model.transform(user_input)
     
 def main():
     age = st.number_input("Age", min_value=18, max_value=100, value=50)
@@ -27,8 +27,8 @@ def main():
         # Prepare the input data
         gender_val = 1 if gender == 'Male' else 0
         user_input = np.array([[age, gender_val, total_bilirubin, alkaline_phosphotase, sgpt, sgot, total_proteins, albumin]])
-        scaler = pickle.load(open('scaler.pkl', 'rb')) 
-        user_input_scaled = scale_input(user_input, scaler)
+        model = pickle.load(open('liver.pkl', 'rb')) 
+        user_input_scaled = model_input(user_input, model)
 
         # Load the pre-trained model
         model = load_model()
