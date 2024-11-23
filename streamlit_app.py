@@ -65,6 +65,4 @@ def main():
         else:
             st.success("The model predicts no liver disease.")
 
-if __name__ == '__main__':
-    main()
    
