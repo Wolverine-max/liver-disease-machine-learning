@@ -38,6 +38,7 @@ def main():
         train_std = scaling_params['std']
         train_mean = np.array(train_mean)
         train_std = np.array(train_std)
+        
         if len(train_mean) != user_input.shape[1]:
             st.error(f"Mismatch in number of features: train_mean has {len(train_mean)} features, but user_input has {user_input.shape[1]} features.")
             return
@@ -47,6 +48,10 @@ def main():
         # Check that the scaled input is in the correct shape (2D array with 1 row and n features)
         if user_input_scaled.ndim == 1:
             user_input_scaled = user_input_scaled.reshape(1, -1)  # Reshape to 2D
+             
+
+        # Debugging: Check the shape of the input before prediction
+        st.write(f"Scaled user input shape: {user_input_scaled.shape}")
 
         # Load the pre-trained model
         model = load_model()
