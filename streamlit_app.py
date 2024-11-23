@@ -24,6 +24,7 @@ def load_scaling_params():
         with open('scaling_params.pkl', 'rb') as f:
             scaling_params = pickle.load(f)
         return scaling_params
+        
      except Exception as e:
         st.error(f"Error loading scaling parameters: {e}")
         return None
