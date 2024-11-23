@@ -28,7 +28,7 @@ def main():
         gender_val = 1 if gender == 'Male' else 0
         user_input = np.array([[age, gender_val, total_bilirubin, alkaline_phosphotase, sgpt, sgot, total_proteins, albumin]])
         scaler = pickle.load(open('scaler.pkl', 'rb')) 
-           user_input_scaled = scale_input(user_input, scaler)
+        user_input_scaled = scale_input(user_input, scaler)
 
         # Load the pre-trained model
         model = load_model()
