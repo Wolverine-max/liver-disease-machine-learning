@@ -27,10 +27,12 @@ def main():
     sgot = st.number_input("SGOT", min_value=0, value=20)
     total_proteins = st.number_input("Total Proteins", min_value=0.0, value=6.0)
     albumin = st.number_input("Albumin", min_value=0.0, value=3.5)
+    bilirubin_direct = st.number_input("Direct Bilirubin", min_value=0.0, value=0.2) 
+    alkaline_phosphotase_direct = st.number_input("Direct Alkaline Phosphotase", min_value=0, value=120)  
     if st.button('Predict'):
         # Prepare the input data
         gender_val = 1 if gender == 'Male' else 0
-        user_input = np.array([[age, gender_val, total_bilirubin, alkaline_phosphotase, sgpt, sgot, total_proteins, albumin]])
+        user_input = np.array([[age, gender_val, total_bilirubin, alkaline_phosphotase, sgpt, sgot, total_proteins, albumin, bilirubin_direct, alkaline_phosphotase_direct]])
         scaling_params = load_scaling_params()
         train_mean = scaling_params['mean']
         train_std = scaling_params['std']
