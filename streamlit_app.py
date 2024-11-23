@@ -26,8 +26,8 @@ def load_scaling_params():
         return scaling_params
         
      except Exception as e:
-        st.error(f"Error loading scaling parameters: {e}")
-        return None
+         st.error(f"Error loading scaling parameters: {e}")
+         return None
     
 def main():
     age = st.number_input("Age", min_value=18, max_value=100, value=50)
